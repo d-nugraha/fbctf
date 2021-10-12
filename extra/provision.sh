@@ -45,6 +45,11 @@
 # We want the provision script to fail as soon as there are any errors
 set -e
 
+# Install additional package first
+sudo apt-get install python-dev
+sudo apt-get install build-essential
+sudo apt-get install zstd
+
 DB="fbctf"
 U="ctf"
 P="ctf"
@@ -296,7 +301,7 @@ fi
             package python-setuptools
             package python-pip
             log "Upgrading pip"
-            sudo -H pip install --upgrade pip
+            sudo -H pip install --upgrade "pip < 21.0"
             log "Installing pip - mycli"
             sudo -H pip install mycli
             package emacs
