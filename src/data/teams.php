@@ -42,13 +42,20 @@ class TeamDataController extends DataController {
 
       $logo_model = await $team->getLogoModel(); // TODO: Combine Awaits
 
+      $members_data = await Team::genTeamData($team->getId());
+      $members = array();
+      
+      foreach ($members_data as $member){
+        array_push($members, $member['name'].' : '.$member['email']);
+      }
+      
       $team_data = (object) array(
         'logo' => array(
           'path' => $logo_model->getLogo(),
           'name' => $logo_model->getName(),
           'custom' => $logo_model->getCustom(),
         ),
-        'team_members' => array(),
+        'team_members' => $members,
         'rank' => $rank,
         'points' => array(
           'base' => $base,
@@ -57,6 +64,7 @@ class TeamDataController extends DataController {
           'total' => $team->getPoints(),
         ),
       );
+      
       if ($team->getName()) {
         /* HH_FIXME[1002] */
         /* HH_FIXME[2011] */
