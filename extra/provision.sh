@@ -46,6 +46,12 @@
 set -e
 
 # Install additional package first
+# using ppa for ubuntu bionic
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update
+
+sudo apt-get install -y php7.4
 sudo apt-get install python-dev
 sudo apt-get install build-essential
 sudo apt-get install zstd
